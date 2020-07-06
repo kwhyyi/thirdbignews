@@ -6,11 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>文章列表</title>
+    <!-- 引入layui文件 -->
+    <link rel="stylesheet" href="./css/layui.css">
     <link rel="stylesheet" href="./libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/iconfont.css">
     <link rel="stylesheet" href="./css/main.css">
+   
+    <!-- 引入layui文件 -->
+    <script src="./js/layui.all.js"></script>
     <script src="./libs/jquery-1.12.4.min.js"></script>
+     <!-- 引入bootstrap的js文件 -->
+     <script src="./libs/bootstrap/js/bootstrap.min.js"></script>
     <!-- 引入模板引擎js文件 -->
     <script src="./libs/template-web.js"></script>
 </head>
@@ -25,17 +32,14 @@
                 <div class="col-xs-6">
                     <form class="form-inline">
                         <select id="selCategory" name="" class="form-control input-sm">
-                            <option value="">所有分类</option>
-                            <option>未分类</option>
-                            <option>奇趣事</option>
-                            <option>会生活</option>
-                            <option>爱旅行</option>
+
                         </select>
                         <select id="selStatus" name="" class="form-control input-sm">
                             <option value="">所有状态</option>
                             <option value="草稿">草稿</option>
                             <option value="已发布">已发布</option>
                         </select>
+                        <input type="text" id="key">
                         <button id="btnSearch" class="btn btn-default btn-sm">筛选</button>
                     </form>
                 </div>
@@ -46,6 +50,7 @@
             <table class="table table-striped table-bordered table-hover mp20">
                 <thead>
                     <tr>
+                        <th>序号</th>
                         <th>标题</th>
                         <th>作者</th>
                         <th>分类</th>
@@ -55,23 +60,68 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>王积千造统最头</td>
-                        <td>杰克</td>
-                        <td>奇趣事</td>
-                        <td class="text-center">2017-06-08 07:08:46</td>
-                        <td class="text-center">已发布</td>
-                        <td class="text-center">
-                            <a href="article_edit.html" class="btn btn-default btn-xs">编辑</a>
-                            <a href="javascript:void(0);" class="btn btn-danger btn-xs delete">删除</a>
-                        </td>
-                    </tr>
+
                 </tbody>
             </table>
-            <div class="row text-center">
+            <div class="row text-center" id="Ss">
+                <!-- 这里显示的值分页组件 -->
             </div>
         </div>
     </div>
+
+
+    <!-- 删除按钮的模态框 -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">警告</h4>
+                </div>
+                <div class="modal-body">
+                    <p>niqueding &hellip;</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Yes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+    <!-- 创建渲染文章列表的模板 -->
+    <script type="text/template" id="ls">
+        {{each data}}
+        <tr>
+            <td>{{$index+1}}</td>
+            <td>{{$value.title}}</td>
+            <td>{{$value.author}}</td>
+            <td>{{$value.category}}</td>
+            <td class="text-center">{{$value.date}}</td>
+            <td class="text-center">{{$value.state}}</td>
+            <td class="text-center">
+                <button data-id={{$value.id}} class="btn btn-default btn-xs">编辑</button>
+                <button data-id={{$value.id}} data-toggle="modal" data-target="#myModal" class="btn btn-danger btn-xs delete">删除</button>
+            </td>
+        </tr>
+        {{/each}}
+    </script>
+
+
+    <!-- 创建分类渲染的模板 -->
+    <script type="text/template" id="op">
+        <option value="">所有分类</option>
+        {{each data}}
+        <option value="{{$value.id}}">{{$value.name}}</option>
+        {{/each}}
+    </script>
+
+    <!-- // 配置文件 -->
+    <script src="./js/http.js"></script>
+    <script src="./js/article_list.js"></script>
 </body>
 
 </html>
