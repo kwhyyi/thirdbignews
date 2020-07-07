@@ -4,10 +4,7 @@ $(function () {
         type: 'get',
         url: BigNew.article_query,
         success: function (res) {
-
             if (res.code == 200) {
-                console.log(res);
-                
                 // 渲染数据
                 var strHtml = template('ls', res.data)
                 $('tbody').html(strHtml)
@@ -23,7 +20,7 @@ $(function () {
 
     // 分页插件
     // 把分页封装成函数
-    function fy(res,np) {
+    function fy(res, np) {
         layui.use('laypage', function () {
             var laypage = layui.laypage;
             //执行一个laypage实例
@@ -38,8 +35,8 @@ $(function () {
                 curr: np || 1,
                 jump: function (obj, first) {
                     //obj包含了当前分页的所有参数，比如：
-                    console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-                    console.log(obj.limit); //得到每页显示的条数
+                    // console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                    // console.log(obj.limit); //得到每页显示的条数
                     nowPage = obj.curr
                     // 发送请求获取当前页的数据
                     $.ajax({
@@ -75,7 +72,6 @@ $(function () {
         type: 'get',
         url: BigNew.category_list,
         success: function (res) {
-            console.log(res);
             if (res.code == 200) {
                 var strHtml = template('op', res)
                 $('#selCategory').html(strHtml)
@@ -98,13 +94,8 @@ $(function () {
             success: function (res) {
                 if (res.code == 200) {
                     // 获取数据成功，重新渲染数据
-                    console.log(res);
-
                     var strHtml = template('ls', res.data)
-                    console.log(strHtml);
-
                     $('tbody').html(strHtml)
-
                     fy(res)
                 }
 
@@ -118,8 +109,6 @@ $(function () {
         var id = $(e.relatedTarget).data('id')
         // 给模态框的确定按钮注册事件，当点击按钮的时候删除数据，重新渲染，关闭模态框
         $('#myModal .btn-primary').on('click', function () {
-            console.log(122);
-
             // 发送请求删除数据
             $.ajax({
                 type: 'post',
@@ -141,25 +130,18 @@ $(function () {
                             success: function (res) {
                                 if (res.code == 200) {
                                     // 获取数据成功，重新渲染数据
-                                    console.log(res);
-
                                     var strHtml = template('ls', res.data)
                                     console.log(strHtml);
-
                                     $('tbody').html(strHtml)
-
-                                    fy(res,nowPage)
+                                    fy(res, nowPage)
                                 }
-
                             }
                         })
                         // 隐藏模态框
                         $('#myModal').modal('hide')
-
                     }
                 }
-                })
-
+            })
         })
     })
 })
