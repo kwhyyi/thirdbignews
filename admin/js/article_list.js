@@ -144,4 +144,10 @@ $(function () {
             })
         })
     })
+
+
+    // 当点击发布文章添加样式
+    $('.release_btn').on('click',function(){
+        parent.$('.level02 li:nth-child(2)').click()
+    })
 })
