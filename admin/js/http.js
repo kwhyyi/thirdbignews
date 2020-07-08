@@ -21,6 +21,9 @@
         comment_pass: baseURL + '/admin/comment/pass',//文章评论通过
         comment_reject: baseURL + '/admin/comment/reject',//文章评论不通过
         comment_delete: baseURL + '/admin/comment/delete',//文章评论删除
+        data_info: baseURL + '/admin/data/info', // 总体数据访问
+        day_article: baseURL + '/admin/data/article', // 日文章访问量  折线图
+        article_count: baseURL + '/admin/data/category'  // 环形图
     }
     w.BigNew = BigNew
 
